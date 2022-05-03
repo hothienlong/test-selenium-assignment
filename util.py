@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
 
 
 class Util:
@@ -14,12 +15,27 @@ class Util:
 
         
     def go_to_main_page(self):
-        self.driver.get('https://vnexpress.net/')
+        self.driver.get('https://tinhte.vn/')
         
-    def click_element(self, ele):
-        ele.click()
+    def click_element(self, byType, eleValue):
+        self.driver.find_element(byType, eleValue).click()
         
     def get_title(self):
-        self.driver.get('https://vnexpress.net/')
+        self.go_to_main_page()
         return self.driver.title
+    
+    # --- By ----
+    # ID = "id"
+    # XPATH = "xpath"
+    # LINK_TEXT = "link text"
+    # PARTIAL_LINK_TEXT = "partial link text"
+    # NAME = "name"
+    # TAG_NAME = "tag name"
+    # CLASS_NAME = "class name"
+    # CSS_SELECTOR = "css selector"
+    def setText(self, byType: By, eleValue: str, text: str):
+        self.driver.find_element(byType, eleValue).clear()
+        self.driver.find_element(byType, eleValue).send_keys(text)
+        
+        
         
