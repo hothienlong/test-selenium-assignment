@@ -33,7 +33,7 @@ class Util:
     # TAG_NAME = "tag name"
     # CLASS_NAME = "class name"
     # CSS_SELECTOR = "css selector"
-    def setText(self, byType: By, eleValue: str, text: str):
+    def set_text(self, byType: By, eleValue: str, text: str):
         self.driver.find_element(byType, eleValue).clear()
         self.driver.find_element(byType, eleValue).send_keys(text)
         

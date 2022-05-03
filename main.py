@@ -26,7 +26,7 @@ class MainTest(unittest.TestCase):
         util.click_element(By.XPATH, searchEleValue)
         
         inputSearchEleValue = "//input[@placeholder='Nhập gì đó để tìm...']"
-        util.setText(By.XPATH, inputSearchEleValue, "thienlong search")
+        util.set_text(By.XPATH, inputSearchEleValue, "thienlong search")
         
 
 if __name__ == "__main__":
