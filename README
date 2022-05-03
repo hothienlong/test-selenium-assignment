@@ -1,0 +1,15 @@
+https://www.youtube.com/watch?v=PPk5lP5nFfE&list=PLIVkuhcFITCQVvDhvFVZ8Ait1hcMKYndz&index=1&ab_channel=CLBB%E1%BA%AFtTr%C4%83n-LTPython
+
+# Cài đặt môi trường
+1. 
+    pip install selenium
+    pip install webdriver-manager
+2. Tạo môi trường ảo (https://cuccode.com/python_virtual_environment.html):
+Dành cho window:
+    a. python -m venv venv
+    b. venv\Scripts\activate
+3. Tải chromedriver.exe (phiên bản bé hơn hoặc bằng trình duyệt chrome hiện tại) về và bỏ vào folder venv
+
+
+# Cách chạy unit test
+https://codelearn.io/sharing/lam-quen-voi-unittest-trong-python
