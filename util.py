@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 import time
 
 
@@ -35,8 +36,12 @@ class Util:
     # CLASS_NAME = "class name"
     # CSS_SELECTOR = "css selector"
     def set_text(self, byType: By, eleValue: str, text: str):
-        self.driver.find_element(byType, eleValue).clear()
-        self.driver.find_element(byType, eleValue).send_keys(text)
+        try:
+            self.driver.find_element(byType, eleValue).clear()
+            self.driver.find_element(byType, eleValue).send_keys(text)
+        except NoSuchElementException:
+            print('Error:', 'Element not found')
+            
 
     def sign_in(self, email, password):
         self.go_to_main_page()
