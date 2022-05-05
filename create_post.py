@@ -187,7 +187,7 @@ class CreatePostTest(unittest.TestCase):
 
         assert result
 
-    def crate_short_post_with_empty_content(self):
+    def test_crate_short_post_with_empty_content(self):
         util.go_to_main_page()
 
         # click add post
@@ -213,7 +213,7 @@ class CreatePostTest(unittest.TestCase):
 
         assert result
 
-    def create_normal_long_post(self):
+    def test_create_normal_long_post(self):
         util.go_to_main_page()
 
         # click add post
@@ -254,7 +254,7 @@ class CreatePostTest(unittest.TestCase):
         assert result
 
 
-    def create_long_post_with_tag(self):
+    def test_create_long_post_with_tag(self):
         util.go_to_main_page()
 
         # click add post
@@ -305,7 +305,7 @@ class CreatePostTest(unittest.TestCase):
 
         assert result
 
-    def create_long_post_with_image(self):
+    def test_create_long_post_with_image(self):
         util.go_to_main_page()
 
         # click add post
@@ -345,7 +345,7 @@ class CreatePostTest(unittest.TestCase):
         assert result
 
 
-    def create_long_post_with_image_url(self):
+    def test_create_long_post_with_image_url(self):
         util.go_to_main_page()
 
         # click add post
@@ -394,7 +394,7 @@ class CreatePostTest(unittest.TestCase):
         assert result
 
 
-    def create_long_post_with_website_url(self):
+    def test_create_long_post_with_website_url(self):
         util.go_to_main_page()
 
         # click add post
@@ -444,7 +444,5 @@ class CreatePostTest(unittest.TestCase):
         
 if __name__ == "__main__":
     unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='.//report'))
-    # unittest.main(verbosity=2)
-    
     util.driver.close()
     util.driver.quit()

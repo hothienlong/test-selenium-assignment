@@ -1,4 +1,5 @@
 from asyncio import sleep
+import HtmlTestRunner
 from operator import truediv
 import unittest
 import time
@@ -186,5 +187,6 @@ class CommentsPostTest(unittest.TestCase):
 
         
 if __name__ == "__main__":
-    unittest.main(verbosity=2)
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='.//report'))
+    util.driver.close()
     util.driver.quit()
