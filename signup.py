@@ -1,7 +1,7 @@
 # https://cuccode.com/python_virtual_environment.html
 import time
 import unittest
-
+import datetime
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
@@ -99,21 +99,46 @@ class SignUpPage:
 class SignUpTest(unittest.TestCase):
     signupPage = SignUpPage()
     
-    # User Interface - Fill all fields, check all the text boxes, radio buttons, buttons, etc (failed)      
+    # Check name (> 3 character)   
     def test_signup1(self):
-        self.signupPage.sign_up("thienlong", "thienlong460@gmail.com", "10/05/2000", "123456", "123456")
-        assert True
+        self.signupPage.sign_up("1", "thienlong460@gmail.com", "10/05/2000", "123456", "123456")
+        error_label_text = self.signupPage.get_error_label(SignUpFieldName.NAME)
+        
+        assert "Vui lòng nhập tên có từ 3 ký tự trở lên." in error_label_text, "Can not validate signup function"
+        time.sleep(0.5)
+        util.driver.close()
         
     # Required fields - Check the required fields by not filling any data (failed)
     def test_signup2(self):
         self.signupPage.sign_up("", "", "", "", "")
         # self.signupPage.check_field_required(SignUpFieldName.NAME)
         assert self.signupPage.check_field_required(SignUpFieldName.NAME)
-        time.sleep(5)
-        util.driver.quit()
+        time.sleep(0.5)
+        util.driver.close()
+        
+    def test_signup3(self):
+        self.signupPage.sign_up("", "", "", "", "")
+        # self.signupPage.check_field_required(SignUpFieldName.NAME)
+        assert self.signupPage.check_field_required(SignUpFieldName.EMAIL)
+        time.sleep(0.5)
+        util.driver.close()
+        
+    def test_signup4(self):
+        self.signupPage.sign_up("", "", "", "", "")
+        # self.signupPage.check_field_required(SignUpFieldName.NAME)
+        assert self.signupPage.check_field_required(SignUpFieldName.PASSWORD)
+        time.sleep(0.5)
+        util.driver.close()
+        
+    def test_signup5(self):
+        self.signupPage.sign_up("", "", "", "", "")
+        # self.signupPage.check_field_required(SignUpFieldName.NAME)
+        assert self.signupPage.check_field_required(SignUpFieldName.CONFIRM_PASSWORD)
+        time.sleep(0.5)
+        util.driver.close()
 
     # Test validate unique username
-    def test_signup3(self):
+    def test_signup6(self):
         self.signupPage.sign_up("thienlong", "thienlong460@gmail.com", "10/05/2000", "123456", "123456")
 
         error_label_text = self.signupPage.get_error_label(SignUpFieldName.NAME)
@@ -121,11 +146,11 @@ class SignUpTest(unittest.TestCase):
         assert "Tên người dùng phải là duy nhất.Tên người dùng được đề cập đã được sử dụng." in error_label_text, "Can not validate signup function"
         
         time.sleep(0.5)
-        util.driver.quit()
+        util.driver.close()
 
     
     # Test validate unique email
-    def test_signup4(self):
+    def test_signup7(self):
         self.signupPage.sign_up("thienlong", "thienlong460@gmail.com", "10/05/2000", "123456", "123456")
 
         error_label_text = self.signupPage.get_error_label(SignUpFieldName.EMAIL)
@@ -133,54 +158,65 @@ class SignUpTest(unittest.TestCase):
         assert "Địa chỉ email phải là duy nhất.Địa chỉ email đề cập đã được sử dụng." in error_label_text, "Can not validate signup function"
         
         time.sleep(0.5)
-        util.driver.quit()
+        util.driver.close()
         
     # Enter Invalid Emails and Click on the Signup button (failed)
-    def test_signup5(self):
-        self.signupPage.sign_up("thienlong", "thienlong460@gmail.com", "10/05/2000", "123456", "123456")
-
-
-        assert True
-        
-    # Enter valid Emails and Click on the Signup button (successful)
-    def test_signup6(self):
-        self.signupPage.sign_up("thienlong", "thienlong460@gmail.com", "10/05/2000", "123456", "123456")
-
-
-        assert True
-        
-    # Enter email already used in system and Click on the Signup button (failed)
-    def test_signup7(self):
-        self.signupPage.sign_up("thienlong", "thienlong460@gmail.com", "10/05/2000", "123456", "123456")
-
-
-        assert True
-
-    # Enter Username already used in system and Click on the Signup button (failed)
     def test_signup8(self):
-        self.signupPage.sign_up("thienlong", "thienlong460@gmail.com", "10/05/2000", "123456", "123456")
-
-
-        assert True
+        self.signupPage.sign_up("thienlong", "longgmail.com", "10/05/2000", "123456", "123456")
         
-    # Passed blank spaces in required fields and Click on the Signup button (failed)
+        error_label_text = self.signupPage.get_error_label(SignUpFieldName.EMAIL)
+        
+        assert "Địa chỉ email không được hỗ trợ, xin vui lòng sử dụng địa chỉ khác." in error_label_text, "Can not validate signup function"
+        
+        time.sleep(0.5)
+        util.driver.close()
+        
+    # Enter Invalid Emails and Click on the Signup button (failed)
     def test_signup9(self):
-        self.signupPage.sign_up("thienlong", "thienlong460@gmail.com", "10/05/2000", "123456", "123456")
-
-
-        assert True
+        self.signupPage.sign_up("thienlong", "long@gmailcom", "10/05/2000", "123456", "123456")
         
-    # Go to the Email and Click on the verification link
+        error_label_text = self.signupPage.get_error_label(SignUpFieldName.EMAIL)
+        
+        assert "Vui lòng nhập địa chỉ email chính xác." in error_label_text, "Can not validate signup function"
+        
+        time.sleep(0.5)
+        util.driver.close()
+        
+    # Enter Invalid Emails and Click on the Signup button (failed)
     def test_signup10(self):
-        self.signupPage.sign_up("thienlong", "thienlong460@gmail.com", "10/05/2000", "123456", "123456")
-
-
-        assert True
+        self.signupPage.sign_up("thienlong", "long@gmail", "10/05/2000", "123456", "123456")
         
-
+        error_label_text = self.signupPage.get_error_label(SignUpFieldName.EMAIL)
         
+        assert "Vui lòng nhập địa chỉ email chính xác." in error_label_text, "Can not validate signup function"
+        
+        time.sleep(0.5)
+        util.driver.close()
 
-
+    # Enter Invalid Emails and Click on the Signup button (failed)
+    def test_signup11(self):
+        self.signupPage.sign_up("thienlong", "@gmail", "10/05/2000", "123456", "123456")
+        
+        error_label_text = self.signupPage.get_error_label(SignUpFieldName.EMAIL)
+        
+        assert "Vui lòng nhập địa chỉ email chính xác." in error_label_text, "Can not validate signup function"
+        
+        time.sleep(0.5)
+        util.driver.close()
+        
+    # Not completed reCapcha
+    def test_signup12(self):
+        # capcha
+        self.signupPage.sign_up("allmlmclcml", "lcmalmca@gmail.com", "06/05/2000", "123456", "123456")
+        
+        time.sleep(0.5)
+        error_label_text = util.get_form_error()
+        
+        assert "You did not complete the CAPTCHA verification properly. Please try again." in error_label_text, "Can not validate signup function"
+        
+        time.sleep(0.5)
+        util.driver.close()
+        
 if __name__ == "__main__":
     unittest.main(verbosity=2)
     

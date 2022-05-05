@@ -10,6 +10,9 @@ Dành cho window:
     b. venv\Scripts\activate
 3. Tải chromedriver.exe (phiên bản bé hơn hoặc bằng trình duyệt chrome hiện tại) về và bỏ vào folder venv
 
+# Cài thêm thư viện
+pip install python-dateutil
+
 
 # Cách chạy unit test
 https://codelearn.io/sharing/lam-quen-voi-unittest-trong-python

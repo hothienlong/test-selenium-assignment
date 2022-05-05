@@ -64,13 +64,17 @@ class Util:
             print('Error:', 'Element not found')
             
     def get_form_error(self):
-        error_form_selector = '.TinhteMods_Form_Error > div > span'
-        
-        error_form_message = self.driver.find_element(
-            By.CSS_SELECTOR, error_form_selector).get_attribute('innerHTML')
-        
-        print(error_form_message)
-        return error_form_message
+        try:
+            error_form_selector = '.TinhteMods_Form_Error > div > span'
+            
+            error_form_message = self.driver.find_element(
+                By.CSS_SELECTOR, error_form_selector).get_attribute('innerHTML')
+            
+            print(error_form_message)
+            return error_form_message
+        except NoSuchElementException:
+            print('Error:', 'Element not found')
+            
 
     def sign_in(self, email, password):
         self.go_to_main_page()
