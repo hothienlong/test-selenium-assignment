@@ -42,7 +42,7 @@ class Util:
         try:
             self.driver.find_element(byType, eleValue).clear()
             self.driver.find_element(byType, eleValue).send_keys(text)
-            print("set text: %s" % text)
+            # print("set text: %s" % text)
         except NoSuchElementException:
             print('Error:', 'Element not found')
             
@@ -70,7 +70,7 @@ class Util:
             error_form_message = self.driver.find_element(
                 By.CSS_SELECTOR, error_form_selector).get_attribute('innerHTML')
             
-            print(error_form_message)
+            # print(error_form_message)
             return error_form_message
         except NoSuchElementException:
             print('Error:', 'Element not found')

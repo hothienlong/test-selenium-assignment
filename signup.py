@@ -4,9 +4,11 @@ import unittest
 import datetime
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
+import HtmlTestRunner
 
 from util import Util
 
+# khởi tạo webdriver -> mở browser
 util = Util()
 
 class SignUpFieldName:
@@ -35,8 +37,9 @@ class SignUpPage:
         # goToSignUpPageEleValue = "//a[contains(text(),'Đăng ký tài khoản mới')]"
         # util.click_element(By.XPATH, goToSignUpPageEleValue)
         
-        print(name, email, birthday, password, confirmPassWord)
+        # print(name, email, birthday, password, confirmPassWord)
         
+        # đăng ký thì navigate tới link register, ko cần đóng trình duyệt
         util.go_to_signup_page()
 
         # set field to signup
@@ -88,12 +91,12 @@ class SignUpPage:
     def get_error_label(self, field_name: SignUpFieldName):
         name_input_ele = self.get_text_element(field_name)
         name_input_ele_id = name_input_ele.get_attribute("id")
-        print(name_input_ele_id)
+        # print(name_input_ele_id)
         
         error_label_ele = util.driver.find_element(By.XPATH, f"//label[@for='{name_input_ele_id}']")
         
         error_label_ele_text = error_label_ele.get_attribute('innerHTML')
-        print(error_label_ele_text)
+        # print(error_label_ele_text)
         return error_label_ele_text
 
 class SignUpTest(unittest.TestCase):
@@ -106,7 +109,6 @@ class SignUpTest(unittest.TestCase):
         
         assert "Vui lòng nhập tên có từ 3 ký tự trở lên." in error_label_text, "Can not validate signup function"
         time.sleep(0.5)
-        util.driver.close()
         
     # Required fields - Check the required fields by not filling any data (failed)
     def test_signup2(self):
@@ -114,28 +116,24 @@ class SignUpTest(unittest.TestCase):
         # self.signupPage.check_field_required(SignUpFieldName.NAME)
         assert self.signupPage.check_field_required(SignUpFieldName.NAME)
         time.sleep(0.5)
-        util.driver.close()
         
     def test_signup3(self):
         self.signupPage.sign_up("", "", "", "", "")
         # self.signupPage.check_field_required(SignUpFieldName.NAME)
         assert self.signupPage.check_field_required(SignUpFieldName.EMAIL)
         time.sleep(0.5)
-        util.driver.close()
         
     def test_signup4(self):
         self.signupPage.sign_up("", "", "", "", "")
         # self.signupPage.check_field_required(SignUpFieldName.NAME)
         assert self.signupPage.check_field_required(SignUpFieldName.PASSWORD)
         time.sleep(0.5)
-        util.driver.close()
         
     def test_signup5(self):
         self.signupPage.sign_up("", "", "", "", "")
         # self.signupPage.check_field_required(SignUpFieldName.NAME)
         assert self.signupPage.check_field_required(SignUpFieldName.CONFIRM_PASSWORD)
         time.sleep(0.5)
-        util.driver.close()
 
     # Test validate unique username
     def test_signup6(self):
@@ -146,7 +144,6 @@ class SignUpTest(unittest.TestCase):
         assert "Tên người dùng phải là duy nhất.Tên người dùng được đề cập đã được sử dụng." in error_label_text, "Can not validate signup function"
         
         time.sleep(0.5)
-        util.driver.close()
 
     
     # Test validate unique email
@@ -158,7 +155,6 @@ class SignUpTest(unittest.TestCase):
         assert "Địa chỉ email phải là duy nhất.Địa chỉ email đề cập đã được sử dụng." in error_label_text, "Can not validate signup function"
         
         time.sleep(0.5)
-        util.driver.close()
         
     # Enter Invalid Emails and Click on the Signup button (failed)
     def test_signup8(self):
@@ -169,7 +165,6 @@ class SignUpTest(unittest.TestCase):
         assert "Địa chỉ email không được hỗ trợ, xin vui lòng sử dụng địa chỉ khác." in error_label_text, "Can not validate signup function"
         
         time.sleep(0.5)
-        util.driver.close()
         
     # Enter Invalid Emails and Click on the Signup button (failed)
     def test_signup9(self):
@@ -180,7 +175,6 @@ class SignUpTest(unittest.TestCase):
         assert "Vui lòng nhập địa chỉ email chính xác." in error_label_text, "Can not validate signup function"
         
         time.sleep(0.5)
-        util.driver.close()
         
     # Enter Invalid Emails and Click on the Signup button (failed)
     def test_signup10(self):
@@ -191,7 +185,6 @@ class SignUpTest(unittest.TestCase):
         assert "Vui lòng nhập địa chỉ email chính xác." in error_label_text, "Can not validate signup function"
         
         time.sleep(0.5)
-        util.driver.close()
 
     # Enter Invalid Emails and Click on the Signup button (failed)
     def test_signup11(self):
@@ -202,7 +195,6 @@ class SignUpTest(unittest.TestCase):
         assert "Vui lòng nhập địa chỉ email chính xác." in error_label_text, "Can not validate signup function"
         
         time.sleep(0.5)
-        util.driver.close()
         
     # Not completed reCapcha
     def test_signup12(self):
@@ -215,8 +207,10 @@ class SignUpTest(unittest.TestCase):
         assert "You did not complete the CAPTCHA verification properly. Please try again." in error_label_text, "Can not validate signup function"
         
         time.sleep(0.5)
-        util.driver.close()
+        
         
 if __name__ == "__main__":
-    unittest.main(verbosity=2)
-    
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='.//report'))
+    # unittest.main()
+    util.driver.close()
+    util.driver.quit()

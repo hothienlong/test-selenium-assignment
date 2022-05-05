@@ -4,6 +4,7 @@ import time
 from util import Util
 from selenium.webdriver.common.by import By
 from selenium import webdriver
+import HtmlTestRunner
 
 util = Util()
 
@@ -104,5 +105,6 @@ class LoginTest(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main(verbosity=2)
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='.//report'))
+    util.driver.close()
     util.driver.quit()

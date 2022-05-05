@@ -3,6 +3,7 @@ from operator import truediv
 import unittest
 import time
 from unittest import result
+import HtmlTestRunner
 
 from util import Util
 from selenium.webdriver.common.by import By
@@ -186,5 +187,6 @@ class CreatePostTest(unittest.TestCase):
 
         
 if __name__ == "__main__":
-    unittest.main(verbosity=2)
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='.//report'))
+    util.driver.close()
     util.driver.quit()
