@@ -18,6 +18,9 @@ class Util:
         
     def go_to_main_page(self):
         self.driver.get('https://tinhte.vn/')
+    
+    def go_to_signup_page(self):
+        self.driver.get('https://tinhte.vn/register/')
         
     def click_element(self, byType, eleValue):
         self.driver.find_element(byType, eleValue).click()
@@ -39,9 +42,35 @@ class Util:
         try:
             self.driver.find_element(byType, eleValue).clear()
             self.driver.find_element(byType, eleValue).send_keys(text)
+            print("set text: %s" % text)
         except NoSuchElementException:
             print('Error:', 'Element not found')
             
+    # def check_field_required(self, byType: By, inputEleValue: str):
+    #     try:
+    #         element = self.driver.find_element(byType, f"//input[@id='{inputEleValue}' and @required]")
+    #         print(inputEleValue)
+    #         print(element)
+    #         print(element.is_displayed)
+    #         return element.is_displayed
+    #     except NoSuchElementException:
+    #         print('Error:', 'Element not found')
+            
+    def get_HTML5_validation_message(self, byType: By, inputEleValue: str):
+        try:
+            element = self.driver.find_element(byType, inputEleValue)
+            return self.driver.executeScript("return arguments[0].validationMessage;", element)
+        except NoSuchElementException:
+            print('Error:', 'Element not found')
+            
+    def get_form_error(self):
+        error_form_selector = '.TinhteMods_Form_Error > div > span'
+        
+        error_form_message = self.driver.find_element(
+            By.CSS_SELECTOR, error_form_selector).get_attribute('innerHTML')
+        
+        print(error_form_message)
+        return error_form_message
 
     def sign_in(self, email, password):
         self.go_to_main_page()

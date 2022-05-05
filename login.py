@@ -62,6 +62,7 @@ class LoginTest(unittest.TestCase):
         self.loginPage.login(
             "trunghieule0303@gmail.com", "123456")
         error_form_selector = '.TinhteMods_Form_Error > div > span'
+        
         error_form_message = util.driver.find_element(
             By.CSS_SELECTOR, error_form_selector).get_attribute('innerHTML')
         assert "Nhập sai mật khẩu. Vui lòng thử lại." in error_form_message, "Can not validate log in function"
